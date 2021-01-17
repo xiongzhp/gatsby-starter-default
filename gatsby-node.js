@@ -1,70 +1,56 @@
-/**
- * Implement Gatsby's Node APIs in this file.
- *
- * See: https://www.gatsbyjs.org/docs/node-apis/
- */
+const path = require("path")
+const { createFilePath } = require("gatsby-source-filesystem")
 
-// You can delete this file if you're not using it
-const path = require('path');
+exports.onCreateNode = ({ node, actions, getNode }) => {
+  const { createNodeField } = actions
 
-exports.onCreateNode = ({ node, boundActionCreators, getNode }) => {
-  const { createNodeField } = boundActionCreators;
-  let slug;
+  if (node.internal.type === "Mdx") {
+    const value = createFilePath({ node, getNode })
 
-  if (node.internal.type === 'MarkdownRemark') {
-    const fileNode = getNode(node.parent);
-    const parsedFilePath = path.parse(fileNode.relativePath);
-
-    if (parsedFilePath.name !== 'index' && parsedFilePath.dir !== '') {
-      slug = `/${parsedFilePath.dir}/${parsedFilePath.name}/`;
-    } else if (parsedFilePath.dir === '') {
-      slug = `/${parsedFilePath.name}/`;
-    } else {
-      slug = `/${parsedFilePath.dir}/`;
-    }
-
-    createNodeField({ node, name: 'slug', value: slug });
+    createNodeField({
+      name: "slug",
+      node,
+      value: `/blog${value}`,
+    })
   }
-};
+}
 
-exports.createPages = ({ graphql, boundActionCreators }) => {
-  const { createPage } = boundActionCreators;
+exports.createPages = async ({ graphql, actions, reporter }) => {
+  const { createPage } = actions
 
-  return new Promise((resolve, reject) => {
-    const pages = [];
-    const blogPost = path.resolve('src/templates/blog-post.js');
-
-    resolve(
-      graphql(
-        `
-          {
-            allMarkdownRemark {
-              edges {
-                node {
-                  fields {
-                    slug
-                  }
-                }
-              }
+  const result = await graphql(`
+    query {
+      allMdx {
+        edges {
+          node {
+            id
+            fields {
+              slug
+            }
+            frontmatter {
+              seoImage
             }
           }
-        `).then((result) => {
-        if (result.errors) {
-          console.log(result.errors);
-          reject(result.errors);
         }
+      }
+    }
+  `)
 
-        result.data.allMarkdownRemark.edges.forEach((edge) => {
-          // Strip yyyy-mm-dd- out of /blog/yyyy-mm-dd-post-title
-          const cleanPath = edge.node.fields.slug.replace(/(\d){4}-(\d){2}-(\d){2}-/, '');
-          createPage({
-            path: cleanPath,
-            component: blogPost,
-            context: {
-              slug: edge.node.fields.slug,
-            },
-          });
-        });
-      }));
-  });
-};
+  if (result.errors) {
+    reporter.panicOnBuild('😱😱😱 ERROR: Loading "createPages" query')
+  }
+
+  const posts = result.data.allMdx.edges
+
+  posts.forEach(({ node }, index) => {
+    console.log(
+      `🍕 Dynamically creating page for ${node.fields.slug} with og-image ${node.frontmatter.seoImage}`
+    )
+
+    createPage({
+      path: node.fields.slug,
+      component: path.resolve(`./src/components/postLayout.js`),
+      context: { id: node.id, ogImageSlug: node.frontmatter.seoImage },
+    })
+  })
+}

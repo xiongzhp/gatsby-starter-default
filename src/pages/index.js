@@ -1,40 +1,36 @@
-import React from 'react';
-import Link from 'gatsby-link';
-import Helmet from 'react-helmet';
+import React from "react"
+// import { Link } from "gatsby"
 
-import Heading from '../components/Heading';
-import Biography from '../components/Biography';
-import RecentPosts from '../components/RecentPosts';
+import { Blob } from "../components/atoms"
+import Layout from "../components/layout"
+import SEO from "../components/seo"
+import PostList from "../components/postList"
+import ProjectList from "../components/projectList"
+import Contact from "../components/contact"
+import Image from "../components/image"
 
-const IndexPage = (props) => {
-  const { edges } = props.data.allMarkdownRemark;
+const IndexPage = () => (
+  <Layout activePage="/">
+    <SEO />
+    <div className="mt-12 flex flex-col-reverse lg:flex-row items-center lg:justify-between lg:space-x-6">
+      <h1 className="mt-12 lg:mt-0 max-w-3xl text-3xl sm:text-4xl text-primary font-semibold sm:text-left md:text-center lg:text-left">
+        Hi, I’m Jeff.
+        <br className="mb-6 lg:hidden" /> I’m an experienced game developer with
+        deep interest in modern web development.
+      </h1>
+      <div className="relative">
+        <Blob />
+        <div className="absolute w-full h-full top-0 flex items-center justify-center">
+          <div className="h-32 w-32 md:h-40 md:w-40 lg:h-48 lg:w-48 rounded-full overflow-hidden">
+            <Image />
+          </div>
+        </div>
+      </div>
+    </div>
+    <PostList showHeading />
+    <ProjectList showHeading />
+    <Contact />
+  </Layout>
+)
 
-  return (
-    <main>
-      <Helmet title="Home | Michael J. Deeb" />
-      <Heading heading="Home" sub="Start | Meet | Embark" />
-      <Biography />
-      <RecentPosts edges={edges} />
-    </main>
-  );
-};
-
-export default IndexPage;
-
-export const query = graphql`
-  query IndexQuery {
-    allMarkdownRemark(sort: { order: DESC, fields: [frontmatter___date] }) {
-      edges {
-        node {
-          id
-          excerpt(pruneLength: 350)
-          frontmatter {
-            date
-            path
-            title
-          }
-        }
-      }
-    }
-  }
-`;
+export default IndexPage

@@ -1,17 +1,22 @@
-import React from 'react';
-import Link from 'gatsby-link';
-import Helmet from 'react-helmet';
+import React from "react"
 
-import Heading from '../components/Heading';
+import Layout from "../components/layout"
+import { Blob } from "../components/atoms"
 
 const NotFoundPage = () => (
-  <div>
-    <Helmet title="Not Found | Michael J. Deeb" />
-    <Heading heading="Not Found" sub="404 | Error | Lost" />
-    <p>It&apos;s not you, it&apos;s me.</p>
-    <p>No, seriously. This is a static site built with <a href="https://www.gatsbyjs.org/">Gatsby</a>. If you followed a link and ended up here I must have made a typo.</p>
-    <p><Link to="/contact">Let me know!</Link></p>
-  </div>
-);
+  <Layout footer={false}>
+    <div className="mt-48 flex justify-center">
+      <div className="absolute">
+        <Blob />
+      </div>
+      <h1 className="mt-12 md:mt-16 lg:mt-20 mx-auto text-center font-bold text-on-accent text-6xl">
+        404
+      </h1>
+    </div>
+    <p className="mt-20 lg:mt-24 font-medium text-center text-2xl text-secondary">
+      Page not found. The page you’re looking for does not exist.
+    </p>
+  </Layout>
+)
 
-export default NotFoundPage;
+export default NotFoundPage
