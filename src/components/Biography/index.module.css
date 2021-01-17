@@ -1,0 +1,47 @@
+@import '../../variables.css';
+
+@keyframes FadeUpIn {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 30px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.Biography {
+  display: flex;
+  border-bottom: var(--one-px) solid var(--color-accent-muted);
+}
+
+.welcome {
+  align-items: center;
+  animation: FadeUpIn 1.5s ease-out 1;
+  box-sizing: content-box;
+  display: flex;
+}
+
+.selfie {
+  border-radius: 50%;
+  vertical-align: text-bottom;
+  width: 6.25rem;
+}
+
+.greeting {
+  font-size: 4rem;
+  line-height: 1rem;
+  margin: 1.25rem;
+}
+
+@media screen and (max-width: 48rem) {
+  .Biography {
+    flex-direction: column;
+  }
+
+  .welcome {
+    justify-content: center;
+    margin: 1.5rem auto 0.5rem;
+  }
+}

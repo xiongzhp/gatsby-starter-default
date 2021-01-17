@@ -1,0 +1,10 @@
+@import '../../variables.css';
+
+.posts {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.post:not(:last-of-type) {
+  border-bottom: var(--one-px) solid var(--color-accent-muted);
+}

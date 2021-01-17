@@ -1,0 +1,8 @@
+@import '../../variables.css';
+
+.footer {
+  border-top: var(--one-px) solid var(--color-accent-muted);
+  margin-top: 2rem;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+}

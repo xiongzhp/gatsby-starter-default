@@ -1,0 +1,83 @@
+@import '../../variables.css';
+
+input[type=text],
+textarea {
+  appearance: none;
+}
+
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  max-width: 31.25rem;
+}
+
+.inputShared {
+  border-width: var(--one-px);
+  border-style: solid;
+  border-image: var(--color-accent-gradient);
+  border-image-slice: 1;
+  margin-bottom: 1rem;
+  padding: 0.5rem 0.5rem;
+}
+
+.input {
+  composes: inputShared;
+  width: 100%;
+}
+
+.phone {
+  display: none;
+}
+
+.textarea {
+  composes: inputShared;
+  width: 100%;
+}
+
+.submit {
+  background-color: #fff;
+  composes: inputShared;
+  padding: 0.5rem 1rem;
+}
+
+.textGradient {
+  background: var(--color-accent-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  height: 100%;
+  text-fill: transparent;
+  -webkit-text-fill-color: transparent;
+  user-select: none;
+  width: 100%;
+}
+
+@keyframes SpeedyGradient {
+  0%{background-position: 0% 50%}
+  50%{background-position: 100% 50%}
+  100%{background-position:0% 50%}
+}
+
+.submit:hover {
+  animation: SpeedyGradient 3s ease infinite;
+  background: var(--color-accent-gradient);
+  background-size: 400% 400%;
+  border: 0;
+  padding: calc(0.5rem + var(--one-px)) calc(1rem + var(--one-px));
+}
+
+.submit:hover .textGradient {
+  color: #fff;
+  text-fill: #fff;
+  -webkit-text-fill-color: #fff;
+}
+
+@media screen and (max-width: 48rem) {
+  .form input,
+  .form textarea {
+    box-sizing: border-box;
+  }
+
+  .inputWrapper {
+    max-width: none;
+  }
+}

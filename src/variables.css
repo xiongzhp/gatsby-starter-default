@@ -1,0 +1,13 @@
+:root {
+  --color-accent-dark: #09f;
+  --color-accent-gradient: linear-gradient(90deg, var(--color-accent-dark), var(--color-accent-light));
+  --color-accent-light: #2ac9fa;
+  --color-accent-muted: #eee;
+  --font-family-normal: 'SourceSansPro', sans-serif;
+  --font-family-retina: 'SourceSansPro@2x', sans-serif;
+  --one-px: 0.0625rem;
+  --page-breakpoint-desktop: 62rem;
+  --page-breakpoint-mobile: 48rem;
+  --color-text-primary: #000;
+  --color-text-muted: #aaa;
+}

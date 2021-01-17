@@ -1,0 +1,36 @@
+@import '../../variables.css';
+
+.Socials {
+  border-bottom: var(--one-px) solid var(--color-accent-muted);
+  padding-bottom: 1rem;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.item {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.icon path {
+  fill: #000;
+}
+
+.icon:hover path {
+  fill: url(#brandHover);
+}
+
+@media screen and (max-width: 48rem) {
+  .row {
+    flex-direction: column;
+  }
+  .item {
+    margin-bottom: 2rem;
+  }
+}

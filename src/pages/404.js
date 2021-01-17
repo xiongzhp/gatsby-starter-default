@@ -1,14 +1,17 @@
-import React from "react"
+import React from 'react';
+import Link from 'gatsby-link';
+import Helmet from 'react-helmet';
 
-import Layout from "../components/layout"
-import SEO from "../components/seo"
+import Heading from '../components/Heading';
 
 const NotFoundPage = () => (
-  <Layout>
-    <SEO title="404: Not found" />
-    <h1>404: Not Found</h1>
-    <p>You just hit a route that doesn&#39;t exist... the sadness.</p>
-  </Layout>
-)
+  <div>
+    <Helmet title="Not Found | Michael J. Deeb" />
+    <Heading heading="Not Found" sub="404 | Error | Lost" />
+    <p>It&apos;s not you, it&apos;s me.</p>
+    <p>No, seriously. This is a static site built with <a href="https://www.gatsbyjs.org/">Gatsby</a>. If you followed a link and ended up here I must have made a typo.</p>
+    <p><Link to="/contact">Let me know!</Link></p>
+  </div>
+);
 
-export default NotFoundPage
+export default NotFoundPage;
